@@ -10,7 +10,7 @@ const socials = [
     label: "LINKEDIN",
     href: "https://www.linkedin.com/in/dinesh-saladi-07a441290/",
   },
-  { label: "X / TWITTER", href: "https://x.com/dinesh_saladi" },
+  { label: "X / TWITTER", href: "https://x.com/0xdinesh79" },
   { label: "INSTAGRAM", href: "https://www.instagram.com/_.dinesh79._/" },
 ];
 
