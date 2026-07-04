@@ -14,13 +14,13 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
     if (index < total - 1) {
       const timeout = setTimeout(() => {
         setIndex(index + 1);
-      }, 350);
+      }, 500);
       return () => clearTimeout(timeout);
     } else {
       const timeout = setTimeout(() => {
         setShow(false);
         setTimeout(onComplete, 800);
-      }, 350);
+      }, 500);
       return () => clearTimeout(timeout);
     }
   }, [index, onComplete]);
