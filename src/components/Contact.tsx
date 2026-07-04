@@ -65,7 +65,7 @@ export default function Contact() {
           </div>
 
           {/* Email CTA (right) — intentional negative space around it */}
-          <div className="col-span-12 md:col-span-4 md:flex md:justify-end">
+          <div className="col-span-12 md:col-span-4 md:flex md:justify-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -106,10 +106,10 @@ export default function Contact() {
         </div>
 
         {/* ── Divider separating CTA from footer navigation ── */}
-        <div className="mt-32 border-t border-white/10 md:mt-40" />
+        <div className="mt-40 border-t border-white/10 md:mt-48" />
 
         {/* ── Footer row: socials centered ── */}
-        <div className="mt-24 pb-16 md:mt-32">
+        <div className="mt-32 pb-16 md:mt-40">
           <motion.div
             className="flex flex-wrap items-center justify-center gap-x-12 gap-y-5 md:gap-x-16"
             initial={{ opacity: 0 }}
