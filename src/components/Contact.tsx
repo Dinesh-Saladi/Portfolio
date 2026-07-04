@@ -62,18 +62,6 @@ export default function Contact() {
             >
               together
             </motion.h2>
-
-            {/* Supporting text — beneath headline, generous breathing room */}
-            <motion.p
-              className="mt-20 font-light tracking-wide text-white/40"
-              style={{ fontSize: "var(--fluid-base)" }}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: DURATION.base, delay: 0.15, ease: EASE }}
-            >
-              {SITE.location} &middot; {SITE.availability}
-            </motion.p>
           </div>
 
           {/* Email CTA (right) — intentional negative space around it */}
@@ -121,7 +109,7 @@ export default function Contact() {
         <div className="mt-32 border-t border-white/10 md:mt-40" />
 
         {/* ── Footer row: socials centered ── */}
-        <div className="mt-16 pb-16 md:mt-20">
+        <div className="mt-24 pb-16 md:mt-32">
           <motion.div
             className="flex flex-wrap items-center justify-center gap-x-12 gap-y-5 md:gap-x-16"
             initial={{ opacity: 0 }}
@@ -154,7 +142,7 @@ export default function Contact() {
 
           {/* Copyright — centered beneath socials */}
           <motion.div
-            className="mt-16 text-center md:mt-24"
+            className="mt-20 text-center md:mt-28"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
