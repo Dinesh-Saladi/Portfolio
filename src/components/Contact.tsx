@@ -39,7 +39,7 @@ export default function Contact() {
         </motion.p>
 
         {/* ── CTA area — headline left, email right ── */}
-        <div className="mt-20 grid grid-cols-12 items-end gap-8 md:mt-24">
+        <div className="mt-20 grid grid-cols-12 items-center gap-8 md:mt-24">
           {/* Headline (left) */}
           <div className="col-span-12 md:col-span-8">
             <motion.h2
@@ -65,7 +65,7 @@ export default function Contact() {
 
             {/* Supporting text — beneath headline, generous breathing room */}
             <motion.p
-              className="mt-10 font-light tracking-wide text-white/40"
+              className="mt-16 font-light tracking-wide text-white/40"
               style={{ fontSize: "var(--fluid-base)" }}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -120,58 +120,37 @@ export default function Contact() {
         {/* ── Divider separating CTA from footer navigation ── */}
         <div className="mt-24 border-t border-white/10 md:mt-32" />
 
-        {/* ── Footer row: logo left, socials + copyright centered ── */}
+        {/* ── Footer row: socials centered ── */}
         <div className="mt-12 pb-12 md:mt-16">
-          <div className="grid grid-cols-12 items-center gap-6">
-            {/* Logo — bottom-left, matches Header treatment */}
-            <div className="col-span-12 md:col-span-3">
-              <motion.a
-                href="#"
-                aria-label={`${SITE.name} — back to top`}
-                className="link-hover interactive text-xs font-normal uppercase tracking-[0.2em] text-white/40 transition-colors hover:text-white"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+          <motion.div
+            className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 md:gap-x-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            {SOCIALS.map((social, i) => (
+              <motion.div
+                key={social.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: EASE }}
+                transition={{
+                  duration: DURATION.base,
+                  delay: 0.3 + i * STAGGER.item,
+                  ease: EASE,
+                }}
               >
-                {SITE.name}
-              </motion.a>
-            </div>
-
-            {/* Socials — centered across the footer row */}
-            <motion.div
-              className="col-span-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 md:col-span-6 md:gap-x-8"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              {SOCIALS.map((social, i) => (
-                <motion.div
-                  key={social.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: DURATION.base,
-                    delay: 0.3 + i * STAGGER.item,
-                    ease: EASE,
-                  }}
-                >
-                  <StaggerLink
-                    href={social.href}
-                    label={social.label}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs tracking-[0.2em] font-light text-white/50 hover:text-white transition-colors duration-500"
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Right spacer — keeps socials centered via the 12-col grid */}
-            <div className="hidden md:col-span-3 md:block" aria-hidden="true" />
-          </div>
+                <StaggerLink
+                  href={social.href}
+                  label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs tracking-[0.2em] font-light text-white/50 hover:text-white transition-colors duration-500"
+                />
+              </motion.div>
+            ))}
+          </motion.div>
 
           {/* Copyright — centered beneath socials */}
           <motion.div
