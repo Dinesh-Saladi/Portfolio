@@ -59,7 +59,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 0.7, y: 0 }}
                 exit={{ opacity: 0, y: -40 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                transition={{ duration: 0.15, ease: "easeInOut" }}
                 onAnimationComplete={handleEnterComplete}
               >
                 {PRELOADER_WORDS[index].text}
