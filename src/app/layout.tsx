@@ -1,23 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AppShell from "@/components/AppShell";
+import { METADATA, PERSON_SCHEMA } from "@/lib/data";
+import { fontVariables } from "@/lib/fonts";
 
-export const metadata: Metadata = {
-  title: "Dinesh Saladi — Software Engineer",
-  description:
-    "Portfolio of Dinesh Saladi — Software Engineer based in Hyderabad. Building interactive digital experiences with clean code and creative animations.",
-  keywords: [
-    "Dinesh Saladi",
-    "Software Engineer",
-    "Full Stack Developer",
-    "Portfolio",
-    "React",
-    "Next.js",
-    "TypeScript",
-  ],
-  icons: {
-    icon: "/favicon.svg",
-  },
-};
+export const metadata: Metadata = METADATA;
 
 export default function RootLayout({
   children,
@@ -25,17 +12,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@100..900&family=Tiro+Devanagari+Hindi:ital@0;1&family=Tiro+Telugu:ital@0;1&family=Noto+Serif+JP:wght@300;400&family=Playfair+Display:ital,wght@0,400;1,400&family=Dancing+Script:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={fontVariables}>
       <body className="antialiased">
-        {children}
+        {/* Skip navigation — first focusable element for keyboard users */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-black focus:outline-none"
+        >
+          Skip to main content
+        </a>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_SCHEMA) }}
+        />
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

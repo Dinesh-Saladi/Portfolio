@@ -2,17 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-
-const currentYear = new Date().getFullYear();
-
-const heroLines = [
-  { text: "DINESH SALADI", ornateIndices: [0, 7] },
-  { text: "SOFTWARE", ornateIndices: [] },
-  { text: "☼ENGINEER☀", ornateIndices: [] },
-  { text: "INCOMING INTERN @ MICROSOFT", ornateIndices: [] },
-  { text: "BASED IN HYDERABAD", ornateIndices: [] },
-  { text: `FOLIO©${currentYear}⚗`, ornateIndices: [] },
-];
+import { HERO_LINES } from "@/lib/data";
 
 const lineVariants = {
   hidden: { opacity: 0, y: 80 },
@@ -27,26 +17,36 @@ const lineVariants = {
   }),
 };
 
-function HeroLine({
-  text,
-  ornateIndices,
-  index,
-}: {
+interface HeroLineProps {
   text: string;
-  ornateIndices: number[];
+  ornateIndices: readonly number[];
   index: number;
-}) {
-  // Render characters with ornate caps
+}
+
+const heroStyles = [
+  { fontSize: "var(--fluid-hero-name)", weight: "300", color: "white" },
+  { fontSize: "var(--fluid-hero-title)", weight: "300", color: "white" },
+  { fontSize: "var(--fluid-hero-title)", weight: "300", color: "white" },
+  { fontSize: "var(--fluid-hero-sub)", weight: "300", color: "rgba(255,255,255,0.7)" },
+  { fontSize: "var(--fluid-hero-sub)", weight: "300", color: "rgba(255,255,255,0.7)" },
+];
+
+function HeroLine({ text, ornateIndices, index }: HeroLineProps) {
   const chars = text.split("");
 
   return (
     <div className="overflow-hidden">
       <motion.div
-        className="flex items-baseline justify-center"
+        className="flex items-baseline justify-center font-serif tracking-[0.04em] leading-[1.15]"
         variants={lineVariants}
         initial="hidden"
         animate="visible"
         custom={index}
+        style={{
+          fontSize: heroStyles[index].fontSize,
+          fontWeight: heroStyles[index].weight,
+          color: heroStyles[index].color,
+        }}
       >
         {chars.map((char, ci) => {
           const isOrnate = ornateIndices.includes(ci);
@@ -54,8 +54,8 @@ function HeroLine({
             return (
               <span
                 key={ci}
-                className="ornate-cap inline-block"
-                style={{ fontSize: "1.3em", lineHeight: 1 }}
+                className="inline-block"
+                style={{ fontSize: "1.3em", lineHeight: 1, fontStyle: "italic", fontWeight: 300 }}
               >
                 {char}
               </span>
@@ -80,40 +80,43 @@ export default function Hero() {
   });
 
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const contentScale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+
+  /* Background ghost layer parallax — moves in opposite direction for depth */
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.3, 1], [0.03, 0.02, 0]);
 
   return (
     <section
       ref={containerRef}
       className="relative flex min-h-screen flex-col justify-center overflow-hidden"
     >
+      {/* Background parallax ghost text */}
       <motion.div
-        className="flex flex-col items-center justify-center text-center"
-        style={{ y: contentY, opacity }}
+        style={{ y: bgY, opacity: bgOpacity }}
+        className="pointer-events-none absolute inset-0 flex select-none items-center justify-center"
       >
-        {heroLines.map((line, i) => (
-          <div
+        <p
+          className="font-serif font-[100] leading-none tracking-tighter text-white whitespace-nowrap select-none"
+          style={{ fontSize: "clamp(8rem, 20vw, 25rem)" }}
+        >
+          DINESH SALADI
+        </p>
+      </motion.div>
+
+      {/* Foreground content */}
+      <motion.div
+        className="relative flex flex-col items-center justify-center text-center"
+        style={{ y: contentY, opacity: contentOpacity, scale: contentScale }}
+      >
+        {HERO_LINES.map((line, i) => (
+          <HeroLine
             key={i}
-            className={`font-serif tracking-[0.04em] text-white leading-[1.15] ${
-              i === 0
-                ? "text-[8vw] md:text-[5.5vw] font-light"
-                : i === 2
-                ? "text-[7vw] md:text-[4.5vw] font-light"
-                : i === 3
-                ? "text-[4vw] md:text-[2.8vw] font-light text-white/70"
-                : i === 4
-                ? "text-[4vw] md:text-[2.8vw] font-light text-white/70"
-                : i === 5
-                ? "text-[4vw] md:text-[2.5vw] font-light text-white/50"
-                : "text-[7vw] md:text-[4.5vw] font-light"
-            }`}
-          >
-            <HeroLine
-              text={line.text}
-              ornateIndices={line.ornateIndices}
-              index={i}
-            />
-          </div>
+            text={line.text}
+            ornateIndices={line.ornateIndices}
+            index={i}
+          />
         ))}
       </motion.div>
     </section>

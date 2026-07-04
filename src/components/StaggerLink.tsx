@@ -8,6 +8,7 @@ interface StaggerLinkProps {
   className?: string;
   target?: string;
   rel?: string;
+  ariaLabel?: string;
 }
 
 export default function StaggerLink({
@@ -16,6 +17,7 @@ export default function StaggerLink({
   className = "",
   target,
   rel,
+  ariaLabel,
 }: StaggerLinkProps) {
   const letters = label.split("");
 
@@ -24,13 +26,13 @@ export default function StaggerLink({
       href={href}
       target={target}
       rel={rel}
+      aria-label={ariaLabel ?? label}
       className={`link-hover inline-flex overflow-hidden ${className}`}
       initial="idle"
       whileHover="hover"
     >
       {letters.map((char, i) => (
         <span key={i} className="relative inline-block overflow-hidden" style={{ height: "1.2em" }}>
-          {/* Top copy — slides up and out */}
           <motion.span
             className="inline-block"
             variants={{
@@ -47,7 +49,6 @@ export default function StaggerLink({
           >
             {char === " " ? "\u00A0" : char}
           </motion.span>
-          {/* Bottom copy — slides up from below */}
           <motion.span
             className="absolute left-0 inline-block"
             style={{ top: "100%" }}

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { ABOUT_PARAGRAPHS, SKILLS } from "@/lib/data";
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,14 +16,14 @@ export default function About() {
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden px-6 py-32 md:px-10"
+      className="relative overflow-hidden px-6 py-[var(--section-py)] md:px-10"
       id="about"
     >
       <div className="mx-auto grid max-w-7xl grid-cols-12 gap-8">
         {/* Left label */}
         <div className="col-span-12 md:col-span-3">
           <motion.p
-            className="text-xs tracking-[0.3em] text-white/30"
+            className="text-xs tracking-[0.3em] text-white/40"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -35,7 +36,8 @@ export default function About() {
         {/* Right content */}
         <div className="col-span-12 md:col-span-8">
           <motion.p
-            className="text-2xl font-light leading-relaxed tracking-tight text-white/80 md:text-3xl lg:text-4xl"
+            className="font-light leading-relaxed tracking-tight text-white/80"
+            style={{ fontSize: "var(--fluid-2xl)" }}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -45,14 +47,12 @@ export default function About() {
               ease: [0.76, 0, 0.24, 1],
             }}
           >
-            Computer Science student at NIT Warangal and incoming Software
-            Engineering Intern at Microsoft. I build reliable, scalable
-            software systems with a strong focus on clean design, performance,
-            and real-world impact.
+            {ABOUT_PARAGRAPHS.primary}
           </motion.p>
 
           <motion.p
-            className="mt-8 text-base font-light leading-relaxed text-white/40"
+            className="mt-8 font-light leading-relaxed text-white/40"
+            style={{ fontSize: "var(--fluid-base)" }}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -62,11 +62,7 @@ export default function About() {
               ease: [0.76, 0, 0.24, 1],
             }}
           >
-            From real-time auction systems to AI-powered SaaS platforms,
-            I enjoy the challenge of building products that feel as good as
-            they perform. Strong foundation in Data Structures, Algorithms,
-            and Systems — with deep interest in backend engineering,
-            distributed systems, and cloud platforms.
+            {ABOUT_PARAGRAPHS.secondary}
           </motion.p>
 
           {/* Skills grid */}
@@ -77,14 +73,7 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            {[
-              { label: "Languages", items: "C++, Java, JavaScript, TypeScript" },
-              { label: "Frontend", items: "React, Next.js, Tailwind CSS, HTML/CSS" },
-              { label: "Backend", items: "Node.js, Express, REST APIs, Socket.IO" },
-              { label: "Databases", items: "SQL, ER Modeling, DBMS Design, Prisma" },
-              { label: "Tools", items: "Git, GitHub, Linux, VS Code" },
-              { label: "Currently", items: "Incoming SWE Intern @ Microsoft" },
-            ].map((skill, i) => (
+            {SKILLS.map((skill, i) => (
               <motion.div
                 key={skill.label}
                 initial={{ opacity: 0, y: 20 }}
@@ -96,10 +85,10 @@ export default function About() {
                   ease: [0.76, 0, 0.24, 1],
                 }}
               >
-                <p className="text-xs tracking-[0.2em] text-white/30">
+                <p className="text-xs tracking-[0.2em] text-white/40">
                   {skill.label.toUpperCase()}
                 </p>
-                <p className="mt-2 text-sm font-light text-white/60">
+                <p className="mt-2 font-light text-white/60" style={{ fontSize: "var(--fluid-sm)" }}>
                   {skill.items}
                 </p>
               </motion.div>

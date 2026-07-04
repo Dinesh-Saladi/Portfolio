@@ -1,72 +1,65 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
+const INTERACTIVE_SEL = "a, button, .interactive, input, textarea, select";
+const SPRING = { damping: 25, stiffness: 300, mass: 0.5 };
+const SIZE_SPRING = { damping: 20, stiffness: 300 };
+
+/**
+ * A performant custom cursor that expands over interactive elements.
+ * - Respects `prefers-reduced-motion` (hidden).
+ * - Uses a single event delegation listener instead of per-element
+ *   bindings + MutationObserver.
+ * - Hidden on touch devices.
+ */
 export default function CustomCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   const cursorSize = useMotionValue(20);
 
-  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
-  const x = useSpring(cursorX, springConfig);
-  const y = useSpring(cursorY, springConfig);
-  const size = useSpring(cursorSize, { damping: 20, stiffness: 300 });
+  const x = useSpring(cursorX, SPRING);
+  const y = useSpring(cursorY, SPRING);
+  const size = useSpring(cursorSize, SIZE_SPRING);
 
-  useEffect(() => {
-    const moveCursor = (e: MouseEvent) => {
+  const isHovered = useRef(false);
+
+  const handlePointerMove = useCallback(
+    (e: PointerEvent) => {
       cursorX.set(e.clientX - 10);
       cursorY.set(e.clientY - 10);
-    };
 
-    const handleMouseEnter = () => {
-      cursorSize.set(60);
-    };
+      /* Check if the pointer is over an interactive target using
+         elementFromPoint — avoids per-element listeners entirely. */
+      const target = document.elementFromPoint(e.clientX, e.clientY);
+      const hovering = target?.closest?.(INTERACTIVE_SEL) != null;
+      if (hovering !== isHovered.current) {
+        isHovered.current = hovering;
+        cursorSize.set(hovering ? 60 : 20);
+      }
+    },
+    [cursorX, cursorY, cursorSize],
+  );
 
-    const handleMouseLeave = () => {
-      cursorSize.set(20);
-    };
-
-    window.addEventListener("mousemove", moveCursor);
-
-    const interactiveElements = document.querySelectorAll(
-      "a, button, .interactive"
-    );
-    interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", handleMouseEnter);
-      el.addEventListener("mouseleave", handleMouseLeave);
-    });
-
-    return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      interactiveElements.forEach((el) => {
-        el.removeEventListener("mouseenter", handleMouseEnter);
-        el.removeEventListener("mouseleave", handleMouseLeave);
-      });
-    };
-  }, [cursorX, cursorY, cursorSize]);
-
-  // Re-bind on DOM changes
   useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const interactiveElements = document.querySelectorAll(
-        "a, button, .interactive"
-      );
-      interactiveElements.forEach((el) => {
-        el.addEventListener("mouseenter", () => cursorSize.set(60));
-        el.addEventListener("mouseleave", () => cursorSize.set(20));
-      });
-    });
+    /* Only activate on fine-pointer devices. */
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    if (reduced) return;
 
-    observer.observe(document.body, { childList: true, subtree: true });
-    return () => observer.disconnect();
-  }, [cursorSize]);
+    window.addEventListener("pointermove", handlePointerMove);
+    return () => window.removeEventListener("pointermove", handlePointerMove);
+  }, [handlePointerMove, reduced]);
+
+  /* Never render on touch or reduced motion. */
+  if (reduced) return null;
 
   return (
     <motion.div
-      ref={cursorRef}
-      className="cursor-blend pointer-events-none fixed top-0 left-0 z-[9999] rounded-full bg-white"
+      className="pointer-events-none fixed top-0 left-0 z-[9999] hidden rounded-full bg-white mix-blend-difference md:block"
       style={{
         x,
         y,

@@ -1,13 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { NAV_LINKS, SITE } from "@/lib/data";
 import StaggerLink from "./StaggerLink";
-
-const navLinks = [
-  { label: "GITHUB", href: "https://github.com/Dinesh-Saladi" },
-  { label: "LINKEDIN", href: "https://www.linkedin.com/in/dinesh-saladi-07a441290/" },
-  { label: "CONTACT", href: "mailto:dineshsaladi79@gmail.com" },
-];
 
 export default function Header() {
   return (
@@ -17,12 +12,16 @@ export default function Header() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 1.8, ease: [0.76, 0, 0.24, 1] }}
     >
-      <a href="#" className="text-xs font-normal tracking-[0.2em] text-white uppercase">
-        DINESH SALADI
+      <a
+        href="#"
+        className="text-xs font-normal tracking-[0.2em] text-white uppercase"
+        aria-label={`${SITE.name} — back to top`}
+      >
+        {SITE.name}
       </a>
 
-      <nav className="flex items-center gap-6 md:gap-10">
-        {navLinks.map((link) => (
+      <nav className="flex items-center gap-6 md:gap-10" aria-label="Social and contact links">
+        {NAV_LINKS.map((link) => (
           <StaggerLink
             key={link.label}
             href={link.href}
