@@ -1,29 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PRELOADER_WORDS } from "@/lib/data";
 
 const total = PRELOADER_WORDS.length;
+const DISPLAY_MS = 500;
 
 export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(true);
+  const [animating, setAnimating] = useState(true);
 
-  useEffect(() => {
+  /* Advance to next word after the current one has been visible long enough */
+  const advance = useCallback(() => {
     if (index < total - 1) {
-      const timeout = setTimeout(() => {
-        setIndex(index + 1);
-      }, 500);
-      return () => clearTimeout(timeout);
+      setIndex((i) => i + 1);
+      setAnimating(true);
     } else {
-      const timeout = setTimeout(() => {
-        setShow(false);
-        setTimeout(onComplete, 800);
-      }, 500);
-      return () => clearTimeout(timeout);
+      setShow(false);
+      setTimeout(onComplete, 800);
     }
   }, [index, onComplete]);
+
+  /* When the word finishes its enter animation, start the display timer */
+  const handleEnterComplete = useCallback(() => {
+    setAnimating(false);
+  }, []);
+
+  useEffect(() => {
+    /* Only start the display timer after the enter animation finishes */
+    if (!animating) {
+      const timeout = setTimeout(advance, DISPLAY_MS);
+      return () => clearTimeout(timeout);
+    }
+  }, [animating, advance]);
 
   return (
     <AnimatePresence>
@@ -49,6 +60,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                 animate={{ opacity: 0.7, y: 0 }}
                 exit={{ opacity: 0, y: -40 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
+                onAnimationComplete={handleEnterComplete}
               >
                 {PRELOADER_WORDS[index].text}
               </motion.p>
