@@ -3,14 +3,24 @@
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PRELOADER_WORDS } from "@/lib/data";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const total = PRELOADER_WORDS.length;
 const DISPLAY_MS = 200;
 
 export default function Preloader({ onComplete }: { onComplete: () => void }) {
+  const reduced = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(true);
   const [animating, setAnimating] = useState(true);
+
+  useEffect(() => {
+    if (reduced) {
+      onComplete();
+    }
+  }, [reduced, onComplete]);
+
+  if (reduced) return null;
 
   /* Advance to next word after the current one has been visible long enough */
   const advance = useCallback(() => {

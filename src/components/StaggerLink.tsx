@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 interface StaggerLinkProps {
   href: string;
@@ -20,6 +21,21 @@ export default function StaggerLink({
   ariaLabel,
 }: StaggerLinkProps) {
   const letters = label.split("");
+  const reduced = useReducedMotion();
+
+  if (reduced) {
+    return (
+      <a
+        href={href}
+        target={target}
+        rel={rel}
+        aria-label={ariaLabel ?? label}
+        className={`${className}`}
+      >
+        {label}
+      </a>
+    );
+  }
 
   return (
     <motion.a

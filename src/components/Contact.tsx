@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { SOCIALS, SITE } from "@/lib/data";
 import { EASE, DURATION, STAGGER } from "@/lib/motion";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 import StaggerLink from "./StaggerLink";
 import MagneticButton from "./MagneticButton";
 
@@ -11,6 +12,7 @@ const EASE_ARR = [0.76, 0, 0.24, 1] as [number, number, number, number];
 
 export default function Contact() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end end"],
@@ -20,49 +22,123 @@ export default function Contact() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
   const year = new Date().getFullYear();
 
+  const dur = (d: number) => (reduced ? 0 : d);
+
   return (
     <section
       ref={containerRef}
       className="relative px-8 pt-[var(--section-py)] md:px-10"
       id="contact"
     >
-      <motion.div style={{ y, opacity }}>
-        {/* Section label */}
-        <motion.p
-          className="text-xs tracking-[0.3em] text-white/40"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: EASE_ARR }}
-        >
-          CONTACT
-        </motion.p>
+      {reduced ? (
+        <div>
+          {/* Section label */}
+          <h2 className="text-xs tracking-[0.3em] text-white/40">
+            CONTACT
+          </h2>
 
-        {/* ── CTA area — headline left, email right ── */}
-        <div className="mt-24 grid grid-cols-12 gap-8 pb-32 md:mt-32 md:pb-40">
-          {/* Headline (left) */}
-          <div className="col-span-12 md:col-span-8">
-            <motion.h2
-              className="font-[200] leading-[1.05] tracking-tight text-white"
-              style={{ fontSize: "var(--fluid-cta)" }}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: DURATION.slow, ease: EASE }}
-            >
-              Let&apos;s work
-            </motion.h2>
-            <motion.h2
-              className="font-[200] leading-[1.05] tracking-tight text-white"
-              style={{ fontSize: "var(--fluid-cta)" }}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: DURATION.slow, delay: 0.1, ease: EASE }}
-            >
-              together
-            </motion.h2>
+          {/* ── CTA area — headline left, email right ── */}
+          <div className="mt-24 grid grid-cols-12 gap-8 pb-32 md:mt-32 md:pb-40">
+            {/* Headline (left) */}
+            <div className="col-span-12 md:col-span-8">
+              <h2
+                className="font-[200] leading-[1.05] tracking-tight text-white"
+                style={{ fontSize: "var(--fluid-cta)" }}
+              >
+                Let&apos;s work
+              </h2>
+              <h2
+                className="font-[200] leading-[1.05] tracking-tight text-white"
+                style={{ fontSize: "var(--fluid-cta)" }}
+              >
+                together
+              </h2>
+            </div>
+
+            {/* Email CTA */}
+            <div className="col-span-12 self-center md:col-span-4 md:flex md:justify-center">
+              <div>
+                <MagneticButton strength={0.12}>
+                  <a
+                    href={`mailto:${SITE.email}`}
+                    aria-label={`Send email to ${SITE.email}`}
+                    className="interactive group inline-flex cursor-pointer items-center justify-center gap-3 rounded-full border border-white/20 font-light text-white transition-colors duration-300 hover:border-white/40 hover:bg-white/5"
+                    style={{ padding: "16px 24px", fontSize: "var(--fluid-base)" }}
+                  >
+                    <span className="whitespace-nowrap">{SITE.email}</span>
+                    <span className="inline-flex flex-shrink-0 items-center justify-center">
+                      <svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1" />
+                      </svg>
+                    </span>
+                  </a>
+                </MagneticButton>
+              </div>
+            </div>
           </div>
+
+          {/* Divider */}
+          <div className="border-t border-white/10" />
+
+          {/* Footer row */}
+          <div className="mt-32 pb-16 md:mt-40">
+            <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-5 md:gap-x-16">
+              {SOCIALS.map((social) => (
+                <StaggerLink
+                  key={social.label}
+                  href={social.href}
+                  label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs tracking-[0.2em] font-light text-white/50 hover:text-white transition-colors duration-500"
+                />
+              ))}
+            </div>
+            <div className="mt-20 text-center md:mt-28">
+              <p className="text-xs font-light tracking-[0.15em] text-white/20">
+                &copy; {year} {SITE.name}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <motion.div style={{ y, opacity }}>
+          {/* Section label */}
+          <motion.h2
+            className="text-xs tracking-[0.3em] text-white/40"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: dur(0.6), ease: EASE_ARR }}
+          >
+            CONTACT
+          </motion.h2>
+
+          {/* ── CTA area — headline left, email right ── */}
+          <div className="mt-24 grid grid-cols-12 gap-8 pb-32 md:mt-32 md:pb-40">
+            {/* Headline (left) */}
+            <div className="col-span-12 md:col-span-8">
+              <motion.h2
+                className="font-[200] leading-[1.05] tracking-tight text-white"
+                style={{ fontSize: "var(--fluid-cta)" }}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: dur(DURATION.slow), ease: EASE }}
+              >
+                Let&apos;s work
+              </motion.h2>
+              <motion.h2
+                className="font-[200] leading-[1.05] tracking-tight text-white"
+                style={{ fontSize: "var(--fluid-cta)" }}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: dur(DURATION.slow), delay: 0.1, ease: EASE }}
+              >
+                together
+              </motion.h2>
+            </div>
 
           {/* Email CTA (right) — intentional negative space around it */}
           <div className="col-span-12 self-center md:col-span-4 md:flex md:justify-center">
@@ -70,7 +146,7 @@ export default function Contact() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+              transition={{ duration: dur(0.6), delay: 0.2, ease: EASE }}
             >
               <MagneticButton strength={0.12}>
                 <a
@@ -115,7 +191,7 @@ export default function Contact() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: dur(0.6), delay: 0.3 }}
           >
             {SOCIALS.map((social, i) => (
               <motion.div
@@ -124,7 +200,7 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: DURATION.base,
+                  duration: dur(DURATION.base),
                   delay: 0.3 + i * STAGGER.item,
                   ease: EASE,
                 }}
@@ -146,7 +222,7 @@ export default function Contact() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: DURATION.base, delay: 0.4, ease: EASE }}
+            transition={{ duration: dur(DURATION.base), delay: 0.4, ease: EASE }}
           >
             <p className="text-xs font-light tracking-[0.15em] text-white/20">
               &copy; {year} {SITE.name}
@@ -154,6 +230,7 @@ export default function Contact() {
           </motion.div>
         </div>
       </motion.div>
+      )}
     </section>
   );
 }

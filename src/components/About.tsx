@@ -3,15 +3,19 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ABOUT_PARAGRAPHS, SKILLS } from "@/lib/data";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  const dur = (d: number) => (reduced ? 0 : d);
 
   return (
     <section
@@ -22,15 +26,15 @@ export default function About() {
       <div className="mx-auto grid max-w-7xl grid-cols-12 gap-8">
         {/* Left label */}
         <div className="col-span-12 md:col-span-3">
-          <motion.p
+          <motion.h2
             className="text-xs tracking-[0.3em] text-white/40"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: dur(0.6), ease: [0.76, 0, 0.24, 1] }}
           >
             ABOUT
-          </motion.p>
+          </motion.h2>
         </div>
 
         {/* Right content */}
@@ -42,7 +46,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{
-              duration: 0.8,
+              duration: dur(0.8),
               delay: 0.1,
               ease: [0.76, 0, 0.24, 1],
             }}
@@ -57,7 +61,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{
-              duration: 0.8,
+              duration: dur(0.8),
               delay: 0.2,
               ease: [0.76, 0, 0.24, 1],
             }}
@@ -71,7 +75,7 @@ export default function About() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: dur(0.8), delay: 0.3 }}
           >
             {SKILLS.map((skill, i) => (
               <motion.div
@@ -80,7 +84,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: 0.5,
+                  duration: dur(0.5),
                   delay: 0.3 + i * 0.08,
                   ease: [0.76, 0, 0.24, 1],
                 }}
@@ -98,14 +102,16 @@ export default function About() {
       </div>
 
       {/* Background parallax text */}
-      <motion.div
-        style={{ y }}
-        className="absolute top-1/2 left-0 -translate-y-1/2 -z-10 select-none pointer-events-none"
-      >
-        <p className="text-[20vw] font-[100] tracking-tighter text-white/[0.02] whitespace-nowrap">
-          DINESH SALADI
-        </p>
-      </motion.div>
+      {!reduced && (
+        <motion.div
+          style={{ y }}
+          className="absolute top-1/2 left-0 -translate-y-1/2 -z-10 select-none pointer-events-none"
+        >
+          <p className="text-[20vw] font-[100] tracking-tighter text-white/[0.02] whitespace-nowrap">
+            DINESH SALADI
+          </p>
+        </motion.div>
+      )}
     </section>
   );
 }

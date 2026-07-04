@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { PROJECTS } from "@/lib/data";
 import { EASE, DURATION } from "@/lib/motion";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 import MagneticButton from "./MagneticButton";
 
 function ProjectRow({
@@ -24,24 +25,25 @@ function ProjectRow({
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const reduced = useReducedMotion();
 
   return (
     <motion.div
       ref={ref}
       className="project-row"
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      animate={isInView || reduced ? { opacity: 1, y: 0 } : {}}
       transition={{
-        duration: DURATION.base,
-        delay: index * 0.1,
+        duration: reduced ? 0 : DURATION.base,
+        delay: reduced ? 0 : index * 0.1,
         ease: EASE,
       }}
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
+      onMouseEnter={reduced ? undefined : onHover}
+      onMouseLeave={reduced ? undefined : onLeave}
       style={{
         background: isHovered ? "#e8e8e8" : "transparent",
-        opacity: isDimmed ? 0.3 : 1,
-        transition: "opacity 0.2s ease-in-out, background 0.2s ease-in-out",
+        opacity: reduced ? 1 : isDimmed ? 0.3 : 1,
+        transition: reduced ? "none" : "opacity 0.2s ease-in-out, background 0.2s ease-in-out",
       }}
     >
       {/* ── Main row ── */}
@@ -59,8 +61,8 @@ function ProjectRow({
             className="text-base font-medium tracking-tight md:text-xl"
             style={{
               color: isHovered ? "#0a0a0a" : "rgba(255,255,255,0.6)",
-              transform: isHovered ? "translateX(10px)" : "translateX(0)",
-              transition: "color 0.2s ease-in-out, transform 0.2s ease-in-out",
+              transform: !reduced && isHovered ? "translateX(10px)" : "translateX(0)",
+              transition: reduced ? "none" : "color 0.2s ease-in-out, transform 0.2s ease-in-out",
             }}
           >
             {project.title}
@@ -121,10 +123,10 @@ function ProjectRow({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
+            initial={reduced ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: DURATION.base, ease: EASE }}
+            exit={reduced ? undefined : { height: 0, opacity: 0 }}
+            transition={{ duration: reduced ? 0 : DURATION.base, ease: EASE }}
             className="overflow-hidden bg-[#0a0a0a]"
           >
             <div className="px-8 pb-10 pt-4 md:px-10">
@@ -171,6 +173,7 @@ export default function Projects() {
   const headerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(headerRef, { once: true, margin: "-100px" });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const reduced = useReducedMotion();
 
   return (
     <section className="py-[var(--section-py)]" id="projects">
@@ -179,10 +182,10 @@ export default function Projects() {
         <motion.div
           className="flex items-center gap-4"
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}
+          animate={isInView || reduced ? { opacity: 1 } : {}}
+          transition={{ duration: reduced ? 0 : 0.6 }}
         >
-          <p className="text-xs tracking-[0.2em] text-white/40">SELECTED WORK</p>
+          <h2 className="text-xs tracking-[0.2em] text-white/40">SELECTED WORK</h2>
           <span className="h-px flex-1 bg-white/10" />
           <span className="text-xs tabular-nums tracking-[0.1em] text-white/20">
             {String(PROJECTS.length).padStart(2, "0")}
@@ -195,8 +198,8 @@ export default function Projects() {
         <motion.div
           className="grid grid-cols-12"
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}
+          animate={isInView || reduced ? { opacity: 1 } : {}}
+          transition={{ duration: reduced ? 0 : 0.6 }}
         >
           <div className="col-span-6 md:col-span-4">
             <p className="text-xs tracking-[0.2em] text-white/40">PROJECT</p>

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useMotionValue } from "framer-motion";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export default function MagneticButton({
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const reduced = useReducedMotion();
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!ref.current) return;
@@ -32,6 +34,10 @@ export default function MagneticButton({
     x.set(0);
     y.set(0);
   };
+
+  if (reduced) {
+    return <div className={`interactive ${className}`}>{children}</div>;
+  }
 
   return (
     <motion.div
