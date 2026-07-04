@@ -26,7 +26,7 @@ export default function Contact() {
       className="relative px-6 pt-[var(--section-py)] md:px-10"
       id="contact"
     >
-      <motion.div style={{ y, opacity }} className="mx-auto max-w-7xl">
+      <motion.div style={{ y, opacity }}>
         {/* Section label */}
         <motion.p
           className="text-xs tracking-[0.3em] text-white/40"
@@ -39,7 +39,7 @@ export default function Contact() {
         </motion.p>
 
         {/* ── CTA area — headline left, email right ── */}
-        <div className="mt-20 grid grid-cols-12 items-center gap-8 md:mt-24">
+        <div className="mt-24 grid grid-cols-12 items-center gap-8 md:mt-32">
           {/* Headline (left) */}
           <div className="col-span-12 md:col-span-8">
             <motion.h2
@@ -65,7 +65,7 @@ export default function Contact() {
 
             {/* Supporting text — beneath headline, generous breathing room */}
             <motion.p
-              className="mt-16 font-light tracking-wide text-white/40"
+              className="mt-20 font-light tracking-wide text-white/40"
               style={{ fontSize: "var(--fluid-base)" }}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -118,12 +118,12 @@ export default function Contact() {
         </div>
 
         {/* ── Divider separating CTA from footer navigation ── */}
-        <div className="mt-24 border-t border-white/10 md:mt-32" />
+        <div className="mt-32 border-t border-white/10 md:mt-40" />
 
         {/* ── Footer row: socials centered ── */}
-        <div className="mt-12 pb-12 md:mt-16">
+        <div className="mt-16 pb-16 md:mt-20">
           <motion.div
-            className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 md:gap-x-12"
+            className="flex flex-wrap items-center justify-center gap-x-12 gap-y-5 md:gap-x-16"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -154,7 +154,7 @@ export default function Contact() {
 
           {/* Copyright — centered beneath socials */}
           <motion.div
-            className="mt-12 text-center md:mt-16"
+            className="mt-16 text-center md:mt-24"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
