@@ -106,7 +106,7 @@ export default function Contact() {
         </div>
 
         {/* ── Divider separating CTA from footer navigation ── */}
-        <div className="mt-40 border-t border-white/10 md:mt-48" />
+        <div className="mt-56 border-t border-white/10 md:mt-64" />
 
         {/* ── Footer row: socials centered ── */}
         <div className="mt-32 pb-16 md:mt-40">
