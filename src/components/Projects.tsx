@@ -46,7 +46,7 @@ function ProjectRow({
     >
       {/* ── Main row ── */}
       <div
-        className="interactive grid cursor-pointer grid-cols-12 items-center px-6 py-7 md:px-10 min-h-[36px] md:min-h-[48px]"
+        className="interactive grid cursor-pointer grid-cols-12 items-center px-8 py-7 md:px-10 min-h-[36px] md:min-h-[48px]"
         onClick={() => setIsOpen(!isOpen)}
         role="button"
         tabIndex={0}
@@ -127,7 +127,7 @@ function ProjectRow({
             transition={{ duration: DURATION.base, ease: EASE }}
             className="overflow-hidden bg-[#0a0a0a]"
           >
-            <div className="px-6 pb-10 pt-4 md:px-10">
+            <div className="px-8 pb-10 pt-4 md:px-10">
               <p className="max-w-2xl text-sm font-light leading-relaxed text-white/70">
                 {project.description}
               </p>
@@ -175,7 +175,7 @@ export default function Projects() {
   return (
     <section className="py-[var(--section-py)]" id="projects">
       {/* Section framing */}
-      <div ref={headerRef} className="px-6 pb-8 md:px-10">
+      <div ref={headerRef} className="px-8 pb-8 md:px-10">
         <motion.div
           className="flex items-center gap-4"
           initial={{ opacity: 0 }}
@@ -191,7 +191,7 @@ export default function Projects() {
       </div>
 
       {/* Column headers */}
-      <div className="px-6 pb-6 md:px-10">
+      <div className="px-8 pb-6 md:px-10">
         <motion.div
           className="grid grid-cols-12"
           initial={{ opacity: 0 }}

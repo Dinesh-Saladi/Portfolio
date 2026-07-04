@@ -16,7 +16,7 @@ export default function About() {
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden px-6 py-[var(--section-py)] md:px-10"
+      className="relative overflow-hidden px-8 py-[var(--section-py)] md:px-10"
       id="about"
     >
       <div className="mx-auto grid max-w-7xl grid-cols-12 gap-8">

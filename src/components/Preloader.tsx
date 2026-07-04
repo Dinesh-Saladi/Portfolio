@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PRELOADER_WORDS } from "@/lib/data";
 
 const total = PRELOADER_WORDS.length;
-const DISPLAY_MS = 300;
+const DISPLAY_MS = 200;
 
 export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const [index, setIndex] = useState(0);
@@ -19,7 +19,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
       setAnimating(true);
     } else {
       setShow(false);
-      setTimeout(onComplete, 800);
+      setTimeout(onComplete, 400);
     }
   }, [index, onComplete]);
 
@@ -43,7 +43,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0a0a0a]"
           initial={{ y: 0 }}
           exit={{ y: "-100vh" }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="relative flex flex-col items-center gap-12">
             {/* Word */}
@@ -59,7 +59,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 0.7, y: 0 }}
                 exit={{ opacity: 0, y: -40 }}
-                transition={{ duration: 0.15, ease: "easeInOut" }}
+                transition={{ duration: 0.1, ease: "easeInOut" }}
                 onAnimationComplete={handleEnterComplete}
               >
                 {PRELOADER_WORDS[index].text}

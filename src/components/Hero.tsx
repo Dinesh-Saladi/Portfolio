@@ -55,7 +55,7 @@ function HeroLine({ text, ornateIndices, index }: HeroLineProps) {
               <span
                 key={ci}
                 className="inline-block"
-                style={{ fontSize: "1.3em", lineHeight: 1, fontStyle: "italic", fontWeight: 300 }}
+                style={{ fontSize: "1.15em", lineHeight: 1, fontStyle: "italic", fontWeight: 300 }}
               >
                 {char}
               </span>
@@ -90,7 +90,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden px-8 md:px-10"
     >
       {/* Background parallax ghost text */}
       <motion.div

@@ -23,7 +23,7 @@ export default function Contact() {
   return (
     <section
       ref={containerRef}
-      className="relative px-6 pt-[var(--section-py)] md:px-10"
+      className="relative px-8 pt-[var(--section-py)] md:px-10"
       id="contact"
     >
       <motion.div style={{ y, opacity }}>
@@ -39,7 +39,7 @@ export default function Contact() {
         </motion.p>
 
         {/* ── CTA area — headline left, email right ── */}
-        <div className="mt-24 grid grid-cols-12 items-center gap-8 md:mt-32">
+        <div className="mt-24 grid grid-cols-12 gap-8 pb-32 md:mt-32 md:pb-40">
           {/* Headline (left) */}
           <div className="col-span-12 md:col-span-8">
             <motion.h2
@@ -65,7 +65,7 @@ export default function Contact() {
           </div>
 
           {/* Email CTA (right) — intentional negative space around it */}
-          <div className="col-span-12 md:col-span-4 md:flex md:justify-center">
+          <div className="col-span-12 self-center md:col-span-4 md:flex md:justify-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ export default function Contact() {
         </div>
 
         {/* ── Divider separating CTA from footer navigation ── */}
-        <div className="mt-56 border-t border-white/10 md:mt-64" />
+        <div className="border-t border-white/10" />
 
         {/* ── Footer row: socials centered ── */}
         <div className="mt-32 pb-16 md:mt-40">

@@ -40,7 +40,7 @@
   --fluid-8xl: clamp(5.4375rem, 4.3125rem + 5.625vw, 7.5rem);
 
   /* Hero-specific display sizes with wider range */
-  --fluid-hero-name: clamp(2.5rem, 1.875rem + 6.25vw, 5.5rem);
+  --fluid-hero-name: clamp(1.7rem, 2rem + 4vw, 5.5rem);
   --fluid-hero-title: clamp(2rem, 1.5rem + 5vw, 4.5rem);
   --fluid-hero-sub: clamp(1rem, 0.75rem + 2.5vw, 2.8rem);
   --fluid-cta: clamp(2.5rem, 1.875rem + 6.25vw, 8rem);
