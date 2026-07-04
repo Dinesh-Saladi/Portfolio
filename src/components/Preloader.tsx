@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PRELOADER_WORDS } from "@/lib/data";
 
 const total = PRELOADER_WORDS.length;
-const DISPLAY_MS = 500;
+const DISPLAY_MS = 300;
 
 export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const [index, setIndex] = useState(0);
