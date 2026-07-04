@@ -27,73 +27,81 @@ export default function Contact() {
       id="contact"
     >
       <motion.div style={{ y, opacity }} className="mx-auto max-w-7xl">
-        {/* 12-col grid — same structural pattern as About (label left, content right) */}
-        <div className="grid grid-cols-12 gap-8">
-          {/* Label column — anchors the section, mirrors "ABOUT" in About.tsx */}
-          <div className="col-span-12 md:col-span-3">
-            <motion.p
-              className="text-xs tracking-[0.3em] text-white/40"
-              initial={{ opacity: 0, y: 20 }}
+        {/* Section label */}
+        <motion.p
+          className="text-xs tracking-[0.3em] text-white/40"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE_ARR }}
+        >
+          CONTACT
+        </motion.p>
+
+        {/* ── CTA area — headline left, email right ── */}
+        <div className="mt-20 grid grid-cols-12 items-end gap-8 md:mt-24">
+          {/* Headline (left) */}
+          <div className="col-span-12 md:col-span-8">
+            <motion.h2
+              className="font-[200] leading-[1.05] tracking-tight text-white"
+              style={{ fontSize: "var(--fluid-cta)" }}
+              initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: EASE_ARR }}
+              transition={{ duration: DURATION.slow, ease: EASE }}
             >
-              CONTACT
+              Let&apos;s work
+            </motion.h2>
+            <motion.h2
+              className="font-[200] leading-[1.05] tracking-tight text-white"
+              style={{ fontSize: "var(--fluid-cta)" }}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: DURATION.slow, delay: 0.1, ease: EASE }}
+            >
+              together
+            </motion.h2>
+
+            {/* Supporting text — beneath headline, generous breathing room */}
+            <motion.p
+              className="mt-10 font-light tracking-wide text-white/40"
+              style={{ fontSize: "var(--fluid-base)" }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: DURATION.base, delay: 0.15, ease: EASE }}
+            >
+              {SITE.location} &middot; {SITE.availability}
             </motion.p>
           </div>
 
-          {/* Content column — asymmetric, left-aligned (no forced symmetry) */}
-          <div className="col-span-12 md:col-span-9">
-            {/* GROUP 1 + 2 — Headline + supporting text (tight inside the group) */}
-            <div>
-              <motion.h2
-                className="font-[200] leading-[1.05] tracking-tight text-white"
-                style={{ fontSize: "var(--fluid-cta)" }}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: DURATION.slow, ease: EASE }}
-              >
-                Let's work together
-              </motion.h2>
-
-              <motion.p
-                className="mt-6 font-light tracking-wide text-white/40"
-                style={{ fontSize: "var(--fluid-base)" }}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: DURATION.base, delay: 0.15, ease: EASE }}
-              >
-                {SITE.location} &middot; {SITE.availability}
-              </motion.p>
-            </div>
-
-            {/* GROUP 3 — Email as the hairline CTA (the line IS the action) */}
-            <div className="mt-24">
+          {/* Email CTA (right) — intentional negative space around it */}
+          <div className="col-span-12 md:col-span-4 md:flex md:justify-end">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+            >
               <MagneticButton strength={0.12}>
-                <motion.a
+                <a
                   href={`mailto:${SITE.email}`}
                   aria-label={`Send email to ${SITE.email}`}
-                  className="interactive group flex w-full items-baseline justify-between border-t border-white/15 pt-6 transition-colors duration-300 hover:border-white/40"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+                  className="interactive group inline-flex cursor-pointer items-center justify-center gap-3 rounded-full border border-white/20 font-light text-white transition-colors duration-300 hover:border-white/40 hover:bg-white/5"
+                  style={{
+                    padding: "16px 24px",
+                    fontSize: "var(--fluid-base)",
+                  }}
                 >
-                  <span
-                    className="font-light text-white/80 transition-colors duration-300 group-hover:text-white"
-                    style={{ fontSize: "var(--fluid-lg)" }}
-                  >
-                    {SITE.email}
-                  </span>
-                  <span className="inline-flex flex-shrink-0 items-center justify-center pb-1">
+                  <span className="whitespace-nowrap">{SITE.email}</span>
+                  <span className="inline-flex flex-shrink-0 items-center justify-center">
                     <svg
-                      width="18"
-                      height="18"
+                      width="14"
+                      height="14"
                       viewBox="0 0 12 12"
                       fill="none"
-                      className="text-white/60 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:text-white"
+                      className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
                       aria-hidden="true"
                     >
                       <path
@@ -103,13 +111,36 @@ export default function Contact() {
                       />
                     </svg>
                   </span>
-                </motion.a>
+                </a>
               </MagneticButton>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* ── Divider separating CTA from footer navigation ── */}
+        <div className="mt-24 border-t border-white/10 md:mt-32" />
+
+        {/* ── Footer row: logo left, socials + copyright centered ── */}
+        <div className="mt-12 pb-12 md:mt-16">
+          <div className="grid grid-cols-12 items-center gap-6">
+            {/* Logo — bottom-left, matches Header treatment */}
+            <div className="col-span-12 md:col-span-3">
+              <motion.a
+                href="#"
+                aria-label={`${SITE.name} — back to top`}
+                className="link-hover interactive text-xs font-normal uppercase tracking-[0.2em] text-white/40 transition-colors hover:text-white"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: EASE }}
+              >
+                {SITE.name}
+              </motion.a>
             </div>
 
-            {/* GROUP 4 — Socials as a single inline row (signature, not grid) */}
+            {/* Socials — centered across the footer row */}
             <motion.div
-              className="mt-32 flex flex-wrap items-center gap-x-10 gap-y-4 md:gap-x-12"
+              className="col-span-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 md:col-span-6 md:gap-x-8"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -138,13 +169,22 @@ export default function Contact() {
               ))}
             </motion.div>
 
-            {/* GROUP 5 — Closing hairline + copyright (the publisher's mark) */}
-            <div className="mt-32 border-t border-white/10 pt-6">
-              <p className="text-xs font-light tracking-[0.15em] text-white/25">
-                &copy; {year} {SITE.name}
-              </p>
-            </div>
+            {/* Right spacer — keeps socials centered via the 12-col grid */}
+            <div className="hidden md:col-span-3 md:block" aria-hidden="true" />
           </div>
+
+          {/* Copyright — centered beneath socials */}
+          <motion.div
+            className="mt-12 text-center md:mt-16"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: DURATION.base, delay: 0.4, ease: EASE }}
+          >
+            <p className="text-xs font-light tracking-[0.15em] text-white/20">
+              &copy; {year} {SITE.name}
+            </p>
+          </motion.div>
         </div>
       </motion.div>
     </section>
