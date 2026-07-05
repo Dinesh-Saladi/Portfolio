@@ -13,6 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={fontVariables}>
+      <head>
+        <link rel="manifest" href="/manifest.webmanifest" />
+      </head>
       <body className="antialiased">
         {/* Skip navigation — first focusable element for keyboard users */}
         <a

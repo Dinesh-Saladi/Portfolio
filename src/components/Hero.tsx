@@ -29,6 +29,7 @@ const heroStyles = [
   { fontSize: "var(--fluid-hero-name)", weight: "300", color: "white" },
   { fontSize: "var(--fluid-hero-title)", weight: "300", color: "white" },
   { fontSize: "var(--fluid-hero-title)", weight: "300", color: "white" },
+  { fontSize: "var(--fluid-hero-tag)", weight: "300", color: "rgba(255,255,255,0.5)" },
   { fontSize: "var(--fluid-hero-sub)", weight: "300", color: "rgba(255,255,255,0.7)" },
   { fontSize: "var(--fluid-hero-sub)", weight: "300", color: "rgba(255,255,255,0.7)" },
 ];
