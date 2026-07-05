@@ -2,20 +2,19 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { PROJECTS } from "@/lib/data";
+import { EXPERIENCE } from "@/lib/data";
 import { EASE, DURATION } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-import MagneticButton from "./MagneticButton";
 
-function ProjectRow({
-  project,
+function ExperienceRow({
+  entry,
   index,
   isHovered,
   isDimmed,
   onHover,
   onLeave,
 }: {
-  project: (typeof PROJECTS)[number];
+  entry: (typeof EXPERIENCE)[number];
   index: number;
   isHovered: boolean;
   isDimmed: boolean;
@@ -55,7 +54,7 @@ function ProjectRow({
         onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setIsOpen(!isOpen); }}
         aria-expanded={isOpen}
       >
-        {/* Title — stacked with category on mobile */}
+        {/* Company — stacked with role on mobile */}
         <div className="col-span-6 md:col-span-4">
           <h3
             className="text-base font-medium tracking-tight md:text-xl"
@@ -65,9 +64,9 @@ function ProjectRow({
               transition: reduced ? "none" : "color 0.2s ease-in-out, transform 0.2s ease-in-out",
             }}
           >
-            {project.title}
+            {entry.company}
           </h3>
-          {/* Mobile-only category */}
+          {/* Mobile-only role */}
           <p
             className="mt-0.5 text-xs font-light tracking-wide md:hidden"
             style={{
@@ -75,11 +74,11 @@ function ProjectRow({
               transition: "color 0.2s ease-in-out",
             }}
           >
-            {project.category}
+            {entry.role}
           </p>
         </div>
 
-        {/* CATEGORY — desktop only */}
+        {/* ROLE — desktop only */}
         <div className="col-span-3 hidden md:block">
           <p
             className="text-sm font-light md:text-base"
@@ -88,11 +87,11 @@ function ProjectRow({
               transition: "color 0.2s ease-in-out",
             }}
           >
-            {project.category}
+            {entry.role}
           </p>
         </div>
 
-        {/* CLIENT — desktop only */}
+        {/* LOCATION — desktop only */}
         <div className="hidden md:col-span-3 md:block">
           <p
             className="text-sm font-light md:text-base"
@@ -101,11 +100,11 @@ function ProjectRow({
               transition: "color 0.2s ease-in-out",
             }}
           >
-            {project.client}
+            {entry.location}
           </p>
         </div>
 
-        {/* YEAR */}
+        {/* PERIOD */}
         <div className="col-span-6 md:col-span-2 flex justify-end">
           <p
             className="text-sm font-light md:text-base"
@@ -114,7 +113,7 @@ function ProjectRow({
               transition: "color 0.2s ease-in-out",
             }}
           >
-            {project.year}
+            {entry.period}
           </p>
         </div>
       </div>
@@ -132,11 +131,23 @@ function ProjectRow({
           >
             <div className="px-8 pb-10 pt-4 md:px-10">
               <p className="max-w-2xl text-sm font-light leading-relaxed text-white/70">
-                {project.description}
+                {entry.summary}
               </p>
 
-              <div className="mt-4 flex flex-wrap gap-3">
-                {project.tech.map((t) => (
+              <ul className="mt-6 max-w-2xl space-y-3">
+                {entry.highlights.map((h, i) => (
+                  <li
+                    key={i}
+                    className="flex gap-3 text-sm font-light leading-relaxed text-white/50"
+                  >
+                    <span className="mt-2 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-white/30" />
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
+                {entry.tech.map((t) => (
                   <span
                     key={t}
                     className="text-xs font-light text-white/50"
@@ -145,27 +156,6 @@ function ProjectRow({
                   </span>
                 ))}
               </div>
-
-              {project.links && project.links.length > 0 && (
-                <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-4">
-                  {project.links.map((lnk) => (
-                    <MagneticButton key={lnk.label} strength={0.2}>
-                      <motion.a
-                        href={lnk.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="interactive group inline-flex items-center gap-2 text-sm font-light text-white underline underline-offset-4 decoration-white/30 hover:decoration-white transition-all duration-300"
-                        whileHover={{ x: 5 }}
-                      >
-                        {lnk.label}
-                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                          <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1" />
-                        </svg>
-                      </motion.a>
-                    </MagneticButton>
-                  ))}
-                </div>
-              )}
             </div>
           </motion.div>
         )}
@@ -174,14 +164,14 @@ function ProjectRow({
   );
 }
 
-export default function Projects() {
+export default function Experience() {
   const headerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(headerRef, { once: true, margin: "-100px" });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const reduced = useReducedMotion();
 
   return (
-    <section className="py-[var(--section-py)]" id="projects">
+    <section className="py-[var(--section-py)]" id="experience">
       {/* Section framing */}
       <div ref={headerRef} className="px-8 pb-8 md:px-10">
         <motion.div
@@ -190,10 +180,10 @@ export default function Projects() {
           animate={isInView || reduced ? { opacity: 1 } : {}}
           transition={{ duration: reduced ? 0 : 0.6 }}
         >
-          <h2 className="text-xs tracking-[0.2em] text-white/40">SELECTED WORK</h2>
+          <h2 className="text-xs tracking-[0.2em] text-white/40">EXPERIENCE</h2>
           <span className="h-px flex-1 bg-white/10" />
           <span className="text-xs tabular-nums tracking-[0.1em] text-white/20">
-            {String(PROJECTS.length).padStart(2, "0")}
+            {String(EXPERIENCE.length).padStart(2, "0")}
           </span>
         </motion.div>
       </div>
@@ -207,24 +197,24 @@ export default function Projects() {
           transition={{ duration: reduced ? 0 : 0.6 }}
         >
           <div className="col-span-6 md:col-span-4">
-            <p className="text-xs tracking-[0.2em] text-white/40">PROJECT</p>
+            <p className="text-xs tracking-[0.2em] text-white/40">COMPANY</p>
           </div>
           <div className="col-span-3 hidden md:block">
-            <p className="text-xs tracking-[0.2em] text-white/40">CATEGORY</p>
+            <p className="text-xs tracking-[0.2em] text-white/40">ROLE</p>
           </div>
           <div className="hidden md:col-span-3 md:block">
-            <p className="text-xs tracking-[0.2em] text-white/40">CLIENT</p>
+            <p className="text-xs tracking-[0.2em] text-white/40">LOCATION</p>
           </div>
           <div className="col-span-6 md:col-span-2 flex justify-end">
-            <p className="text-xs tracking-[0.2em] text-white/40">YEAR</p>
+            <p className="text-xs tracking-[0.2em] text-white/40">PERIOD</p>
           </div>
         </motion.div>
       </div>
 
-      {PROJECTS.map((project, i) => (
-        <ProjectRow
-          key={project.title}
-          project={project}
+      {EXPERIENCE.map((entry, i) => (
+        <ExperienceRow
+          key={entry.company}
+          entry={entry}
           index={i}
           isHovered={hoveredIndex === i}
           isDimmed={hoveredIndex !== null && hoveredIndex !== i}

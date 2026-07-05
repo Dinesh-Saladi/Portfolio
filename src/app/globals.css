@@ -43,6 +43,7 @@
   --fluid-hero-name: clamp(1.7rem, 2rem + 4vw, 5.5rem);
   --fluid-hero-title: clamp(2rem, 1.5rem + 5vw, 4.5rem);
   --fluid-hero-sub: clamp(1rem, 0.75rem + 2.5vw, 2.8rem);
+  --fluid-hero-tag: clamp(0.75rem, 0.625rem + 0.625vw, 1.25rem);
   --fluid-cta: clamp(2.5rem, 1.875rem + 6.25vw, 8rem);
 
   /* Spacing */

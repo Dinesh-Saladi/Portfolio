@@ -26,8 +26,8 @@ export default function Header() {
             key={link.label}
             href={link.href}
             label={link.label}
-            target={link.href.startsWith("http") ? "_blank" : undefined}
-            rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+            target={link.href.startsWith("http") || link.href.endsWith(".pdf") ? "_blank" : undefined}
+            rel={link.href.startsWith("http") || link.href.endsWith(".pdf") ? "noopener noreferrer" : undefined}
             className="text-xs tracking-[0.2em] font-light text-white"
           />
         ))}

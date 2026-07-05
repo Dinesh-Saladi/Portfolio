@@ -11,7 +11,7 @@ import type { Metadata } from "next";
 export const SITE = {
   name: "Dinesh Saladi",
   role: "Software Engineer",
-  roleLong: "Software Engineer based in Hyderabad",
+  roleLong: "Software Engineer specializing in AI systems and backend engineering",
   email: "dineshsaladi79@gmail.com",
   location: "Hyderabad, India",
   timezone: "GMT+5:30",
@@ -21,22 +21,27 @@ export const SITE = {
   twitter: "https://x.com/0xdinesh79",
   instagram: "https://www.instagram.com/_.dinesh79._/",
   url: "https://dineshsaladi.com",
+  resume: "/resume.pdf",
 } as const;
 
 export const HERO_LINES = [
   { text: "DINESH SALADI", ornateIndices: [0, 7] },
   { text: "SOFTWARE", ornateIndices: [] },
   { text: "ENGINEER", ornateIndices: [] },
+  { text: "AI SYSTEMS  •  BACKEND ENGINEERING", ornateIndices: [] },
   { text: "INTERN @ MICROSOFT", ornateIndices: [] },
   { text: "BASED IN HYDERABAD", ornateIndices: [] },
 ] as const;
 
 export const PHILOSOPHY_PHRASES = [
-  "I build digital experiences",
-  "that feel alive — blending",
-  "clean engineering with",
-  "motion, interaction, and",
-  "thoughtful design.",
+  "I build intelligent software systems",
+  "that combine backend engineering,",
+  "AI agents, and thoughtful user",
+  "experiences. From distributed",
+  "systems to AI-powered automation,",
+  "I enjoy solving complex engineering",
+  "problems with scalable, reliable",
+  "software.",
 ] as const;
 
 export const PARALLAX_ROWS = [
@@ -44,6 +49,11 @@ export const PARALLAX_ROWS = [
   { text: "FULL STACK DEVELOPER •", direction: "right", speed: 1.0 },
   { text: "CREATIVE CODER •", direction: "left", speed: 0.8 },
 ] as const;
+
+export interface ProjectLink {
+  label: string;
+  href: string;
+}
 
 export interface Project {
   title: string;
@@ -53,60 +63,73 @@ export interface Project {
   tech: string[];
   year: string;
   link?: string;
+  links?: ProjectLink[];
 }
 
 export const PROJECTS: Project[] = [
   {
     title: "LiveBid",
-    category: "Full Stack Development",
+    category: "Real-Time Systems",
     client: "Personal",
     description:
-      "Built a real-time auction platform where every second counts. Features live bidding with zero-lag WebSocket updates, competitor insights, and transparent bidding history with verified listings. Designed for smart bidders who want to win with confidence.",
-    tech: ["React", "Express", "Socket.IO", "Node.js"],
+      "A real-time auction platform built around an event-driven backend. Socket.IO and WebSocket connections push zero-lag bid updates to all participants, while a concurrency-safe bidding layer with race-condition-safe updates guarantees no double-bids or stale data — even under peak load. PostgreSQL persists every auction, bid, and user state; Express.js orchestrates the event loop; and the React frontend renders live timers and competitor insights with verified listings.",
+    tech: ["Socket.IO", "WebSockets", "Express.js", "PostgreSQL"],
     year: "2025",
     link: "https://live-bid.onrender.com/",
+    links: [
+      { label: "Live Demo", href: "https://live-bid.onrender.com/" },
+      { label: "GitHub", href: "https://github.com/Dinesh-Saladi/LiveBid" },
+    ],
   },
   {
     title: "FormX",
     category: "AI-Powered SaaS",
     client: "Personal",
     description:
-      "Developed an AI-powered form creation platform — one prompt, infinite possibilities. Features smart form generation from natural language, drag-and-drop customization, instant publishing with real-time analytics, and visual response dashboards.",
-    tech: ["React", "AI/ML", "Node.js", "Analytics"],
+      "An AI-powered form generation platform that turns a single natural-language prompt into a fully structured form — dynamic schema generation, conditional logic, and field validation all derived from the prompt itself. PostgreSQL stores form definitions and response data, REST APIs expose the CRUD surface, and a React + ShadCN UI frontend provides drag-and-drop customization, instant publishing, and real-time visual response dashboards.",
+    tech: ["React", "ShadCN UI", "PostgreSQL", "REST APIs"],
     year: "2025",
     link: "https://formx-zfhf.onrender.com/",
+    links: [
+      { label: "Live Demo", href: "https://formx-zfhf.onrender.com/" },
+      { label: "GitHub", href: "https://github.com/Dinesh-Saladi/FormX" },
+    ],
   },
   {
     title: "LinkFlow",
-    category: "Web Application",
+    category: "Creator Platform",
     client: "Personal",
     description:
-      "Created a link-in-bio platform for creators. Everything you are, in one simple link. Features unlimited links, built-in follower system, performance analytics, and full customization — making it dead simple for creators to stand out.",
-    tech: ["Next.js", "Tailwind CSS", "Prisma", "TypeScript"],
+      "A link-in-bio platform for creators with built-in authentication, performance analytics, and a fully responsive UI. Next.js powers the frontend with SSR for fast profile loads, Prisma manages the database layer for user accounts, link trees, and follower relationships, and the analytics dashboard tracks click-through rates and follower growth. Full customization for unlimited links — making it simple for creators to stand out.",
+    tech: ["Next.js", "Prisma", "Authentication", "Analytics"],
     year: "2025",
     link: "https://link-flow-eight.vercel.app/",
+    links: [
+      { label: "Live Demo", href: "https://link-flow-eight.vercel.app/" },
+    ],
   },
 ];
 
 export const SKILLS = [
-  { label: "Languages", items: "C++, Java, JavaScript, TypeScript" },
-  { label: "Frontend", items: "React, Next.js, Tailwind CSS, HTML/CSS" },
-  { label: "Backend", items: "Node.js, Express, REST APIs, Socket.IO" },
-  { label: "Databases", items: "SQL, ER Modeling, DBMS Design, Prisma" },
-  { label: "Tools", items: "Git, GitHub, Linux, VS Code" },
-  { label: "Currently", items: "SWE Intern @ Microsoft" },
+  { label: "Languages", items: "C++, Java, Python, JavaScript, SQL, PowerShell" },
+  { label: "Frontend", items: "React, Vite, Tailwind CSS, ShadCN UI" },
+  { label: "Backend", items: "Node.js, Express.js, Flask, REST APIs, Socket.IO" },
+  { label: "AI / Agents", items: "LLM Orchestration, Prompt Engineering, Multi-Agent Pipelines" },
+  { label: "Databases", items: "PostgreSQL, Oracle SQL" },
+  { label: "Tools & Platforms", items: "Git, GitHub, Docker, Azure DevOps, Linux, Hyper-V, Postman" },
 ] as const;
 
 export const ABOUT_PARAGRAPHS = {
   primary:
-    "Computer Science student at NIT Warangal and incoming Software Engineering Intern at Microsoft. I build reliable, scalable software systems with a strong focus on clean design, performance, and real-world impact.",
+    "Computer Science student at NIT Warangal and Software Engineering Intern at Microsoft. I enjoy building intelligent software systems that combine backend engineering, distributed systems, and AI agents to solve real-world problems. From autonomous multi-agent platforms to real-time applications, I focus on designing scalable, reliable systems while crafting interfaces that feel intuitive and polished.",
   secondary:
-    "From real-time auction systems to AI-powered SaaS platforms, I enjoy the challenge of building products that feel as good as they perform. Strong foundation in Data Structures, Algorithms, and Systems — with deep interest in backend engineering, distributed systems, and cloud platforms.",
+    "Strong foundation in Data Structures & Algorithms, Operating Systems, DBMS, and Computer Networks, with growing interests in cloud infrastructure, developer tools, and AI-powered automation.",
 } as const;
 
 export const SOCIALS = [
   { label: "GITHUB", href: SITE.github },
   { label: "LINKEDIN", href: SITE.linkedin },
+  { label: "RESUME", href: SITE.resume },
   { label: "X / TWITTER", href: SITE.twitter },
   { label: "INSTAGRAM", href: SITE.instagram },
 ] as const;
@@ -114,6 +137,7 @@ export const SOCIALS = [
 export const NAV_LINKS = [
   { label: "GITHUB", href: SITE.github },
   { label: "LINKEDIN", href: SITE.linkedin },
+  { label: "RESUME", href: SITE.resume },
   { label: "CONTACT", href: `mailto:${SITE.email}` },
 ] as const;
 
@@ -125,23 +149,92 @@ export const PRELOADER_WORDS = [
   { text: "こんにちは", lang: "ja", font: "'Noto Serif JP', serif", style: "normal" },
 ] as const;
 
+/* ── Experience ──────────────────────────────── */
+
+export interface ExperienceEntry {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  summary: string;
+  highlights: string[];
+  tech: string[];
+  link?: string;
+}
+
+export const EXPERIENCE: ExperienceEntry[] = [
+  {
+    company: "Microsoft",
+    role: "Software Engineering Intern",
+    period: "May 2026 – July 2026",
+    location: "Hyderabad, India",
+    summary:
+      "Built an autonomous multi-agent orchestration platform that automates the complete security remediation workflow — from vulnerability reproduction to pull request generation.",
+    highlights: [
+      "Built an orchestration platform coordinating 9 specialized AI agents.",
+      "Engineered crash-safe execution using subprocess lifecycle management and persistent state recovery.",
+      "Designed a self-learning framework that extracts reusable knowledge from completed executions and continuously improves future agent performance.",
+      "Developed a React + Flask monitoring dashboard featuring live execution visualization, human approval gates, retry controls, and configurable agent workflows.",
+    ],
+    tech: [
+      "Python",
+      "Flask",
+      "React",
+      "REST APIs",
+      "LLMs",
+      "AI Agents",
+      "Azure DevOps",
+    ],
+  },
+];
+
+/* ── Competitive Programming ─────────────────── */
+
+export interface CPPlatform {
+  name: string;
+  rating: string;
+  rank: string;
+  url: string;
+}
+
+export const COMPETITIVE_PROGRAMMING = {
+  platforms: [
+    { name: "LeetCode", rating: "1870", rank: "Knight", url: "https://leetcode.com/u/DineshSaladi/" },
+    { name: "Codeforces", rating: "1383", rank: "Pupil", url: "https://codeforces.com/profile/Dinesh-Saladi" },
+    { name: "CodeChef", rating: "1664", rank: "3 Star", url: "https://www.codechef.com/users/dineshsaladi" },
+  ] satisfies CPPlatform[],
+} as const;
+
+/* ── SEO metadata ────────────────────────────── */
+
 export const METADATA: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
     default: `${SITE.name} — ${SITE.role}`,
     template: `%s — ${SITE.name}`,
   },
-  description: `Portfolio of ${SITE.name} — ${SITE.roleLong}. Building interactive digital experiences with clean code and creative animations.`,
+  description: `Portfolio of ${SITE.name} — ${SITE.roleLong}. Building scalable backend systems, AI-powered automation platforms, and real-time applications with a focus on engineering depth and elegant interfaces.`,
   keywords: [
     SITE.name,
     SITE.role,
+    "Backend Engineering",
+    "AI Systems",
+    "Distributed Systems",
     "Full Stack Developer",
-    "Portfolio",
+    "Software Engineer Intern",
+    "Microsoft Intern",
+    "NIT Warangal",
+    "Competitive Programming",
     "React",
     "Next.js",
     "TypeScript",
-    "Framer Motion",
-    "Web Animation",
+    "Node.js",
+    "Python",
+    "Flask",
+    "PostgreSQL",
+    "Socket.IO",
+    "WebSockets",
+    "Portfolio",
   ],
   authors: [{ name: SITE.name, url: SITE.url }],
   creator: SITE.name,
@@ -150,7 +243,7 @@ export const METADATA: Metadata = {
     url: SITE.url,
     title: `${SITE.name} — ${SITE.role}`,
     siteName: SITE.name,
-    description: `Portfolio of ${SITE.name} — ${SITE.roleLong}. Building interactive digital experiences with clean code and creative animations.`,
+    description: `Portfolio of ${SITE.name} — ${SITE.roleLong}. Building scalable backend systems, AI-powered automation platforms, and real-time applications.`,
     locale: "en_US",
   },
   twitter: {
@@ -184,12 +277,24 @@ export const PERSON_SCHEMA = {
   },
   sameAs: [SITE.github, SITE.linkedin, SITE.twitter, SITE.instagram],
   knowsAbout: [
+    "Backend Engineering",
+    "AI Systems",
+    "Distributed Systems",
     "Software Engineering",
     "Full Stack Development",
+    "Competitive Programming",
     "React",
     "Next.js",
     "TypeScript",
     "Node.js",
-    "Web Animation",
+    "Python",
+    "Flask",
+    "PostgreSQL",
+    "Socket.IO",
+    "WebSockets",
+    "LLM Orchestration",
+    "Multi-Agent Pipelines",
+    "Microsoft Azure DevOps",
+    "Docker",
   ],
 };
