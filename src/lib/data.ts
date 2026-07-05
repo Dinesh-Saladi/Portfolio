@@ -34,11 +34,14 @@ export const HERO_LINES = [
 ] as const;
 
 export const PHILOSOPHY_PHRASES = [
-  "I build digital experiences",
-  "that feel alive — blending",
-  "clean engineering with",
-  "motion, interaction, and",
-  "thoughtful design.",
+  "I build intelligent software systems",
+  "that combine backend engineering,",
+  "AI agents, and thoughtful user",
+  "experiences. From distributed",
+  "systems to AI-powered automation,",
+  "I enjoy solving complex engineering",
+  "problems with scalable, reliable",
+  "software.",
 ] as const;
 
 export const PARALLAX_ROWS = [
