@@ -40,8 +40,8 @@ export default function TextParallax() {
   return (
     <section className="py-20">
       <SlideText direction="left" text="SOFTWARE ENGINEER •" speed={1.2} />
-      <SlideText direction="right" text="FULL STACK DEVELOPER •" speed={1} />
-      <SlideText direction="left" text="CREATIVE CODER •" speed={0.8} />
+      <SlideText direction="right" text="BUILDING AI SYSTEMS •" speed={1} />
+      <SlideText direction="left" text="SOLVING REAL-WORLD PROBLEMS •" speed={0.8} />
     </section>
   );
 }
