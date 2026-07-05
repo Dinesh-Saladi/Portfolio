@@ -41,7 +41,7 @@ function ProjectRow({
       onMouseEnter={reduced ? undefined : onHover}
       onMouseLeave={reduced ? undefined : onLeave}
       style={{
-        background: isHovered ? "#e8e8e8" : "transparent",
+        background: isHovered ? "var(--foreground)" : "transparent",
         opacity: reduced ? 1 : isDimmed ? 0.3 : 1,
         transition: reduced ? "none" : "opacity 0.2s ease-in-out, background 0.2s ease-in-out",
       }}
@@ -60,7 +60,7 @@ function ProjectRow({
           <h3
             className="text-base font-medium tracking-tight md:text-xl"
             style={{
-              color: isHovered ? "#0a0a0a" : "rgba(255,255,255,0.6)",
+              color: isHovered ? "var(--background)" : "rgba(255,255,255,0.6)",
               transform: !reduced && isHovered ? "translateX(10px)" : "translateX(0)",
               transition: reduced ? "none" : "color 0.2s ease-in-out, transform 0.2s ease-in-out",
             }}
@@ -71,7 +71,7 @@ function ProjectRow({
           <p
             className="mt-0.5 text-xs font-light tracking-wide md:hidden"
             style={{
-              color: isHovered ? "#0a0a0a" : "rgba(255,255,255,0.35)",
+              color: isHovered ? "var(--background)" : "rgba(255,255,255,0.35)",
               transition: "color 0.2s ease-in-out",
             }}
           >
@@ -84,7 +84,7 @@ function ProjectRow({
           <p
             className="text-sm font-light md:text-base"
             style={{
-              color: isHovered ? "#0a0a0a" : "rgba(255,255,255,0.35)",
+              color: isHovered ? "var(--background)" : "rgba(255,255,255,0.35)",
               transition: "color 0.2s ease-in-out",
             }}
           >
@@ -97,7 +97,7 @@ function ProjectRow({
           <p
             className="text-sm font-light md:text-base"
             style={{
-              color: isHovered ? "#0a0a0a" : "rgba(255,255,255,0.35)",
+              color: isHovered ? "var(--background)" : "rgba(255,255,255,0.35)",
               transition: "color 0.2s ease-in-out",
             }}
           >
@@ -110,7 +110,7 @@ function ProjectRow({
           <p
             className="text-sm font-light md:text-base"
             style={{
-              color: isHovered ? "#0a0a0a" : "rgba(255,255,255,0.35)",
+              color: isHovered ? "var(--background)" : "rgba(255,255,255,0.35)",
               transition: "color 0.2s ease-in-out",
             }}
           >
@@ -127,7 +127,8 @@ function ProjectRow({
             animate={{ height: "auto", opacity: 1 }}
             exit={reduced ? undefined : { height: 0, opacity: 0 }}
             transition={{ duration: reduced ? 0 : DURATION.base, ease: EASE }}
-            className="overflow-hidden bg-[#0a0a0a]"
+            layout
+            className="overflow-hidden bg-background"
           >
             <div className="px-8 pb-10 pt-4 md:px-10">
               <p className="max-w-2xl text-sm font-light leading-relaxed text-white/70">
@@ -155,7 +156,7 @@ function ProjectRow({
                     whileHover={{ x: 5 }}
                   >
                     See website
-                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                       <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1" />
                     </svg>
                   </motion.a>

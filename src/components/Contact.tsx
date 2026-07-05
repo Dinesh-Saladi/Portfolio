@@ -193,26 +193,15 @@ export default function Contact() {
             viewport={{ once: true }}
               transition={{ duration: dur(0.6), delay: 0.3 }}
           >
-            {SOCIALS.map((social, i) => (
-              <motion.div
+            {SOCIALS.map((social) => (
+              <StaggerLink
                 key={social.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: dur(DURATION.base),
-                  delay: 0.3 + i * STAGGER.item,
-                  ease: EASE,
-                }}
-              >
-                <StaggerLink
-                  href={social.href}
-                  label={social.label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs tracking-[0.2em] font-light text-white/50 hover:text-white transition-colors duration-500"
-                />
-              </motion.div>
+                href={social.href}
+                label={social.label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs tracking-[0.2em] font-light text-white/50 hover:text-white transition-colors duration-500"
+              />
             ))}
           </motion.div>
 

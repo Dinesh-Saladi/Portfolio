@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#0a0a0a] px-6">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-8">
       <motion.div
         className="text-center"
         initial={{ opacity: 0, y: 40 }}

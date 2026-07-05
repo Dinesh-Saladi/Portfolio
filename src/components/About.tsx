@@ -40,7 +40,7 @@ export default function About() {
         {/* Right content */}
         <div className="col-span-12 md:col-span-8">
           <motion.p
-            className="font-light leading-relaxed tracking-tight text-white/80"
+            className="font-light leading-relaxed tracking-tight text-white/80 max-w-prose"
             style={{ fontSize: "var(--fluid-2xl)" }}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -77,25 +77,15 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: dur(0.8), delay: 0.3 }}
           >
-            {SKILLS.map((skill, i) => (
-              <motion.div
-                key={skill.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: dur(0.5),
-                  delay: 0.3 + i * 0.08,
-                  ease: [0.76, 0, 0.24, 1],
-                }}
-              >
+            {SKILLS.map((skill) => (
+              <div key={skill.label}>
                 <p className="text-xs tracking-[0.2em] text-white/40">
                   {skill.label.toUpperCase()}
                 </p>
                 <p className="mt-2 font-light text-white/60" style={{ fontSize: "var(--fluid-sm)" }}>
                   {skill.items}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </motion.div>
         </div>

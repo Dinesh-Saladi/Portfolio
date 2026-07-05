@@ -73,7 +73,7 @@ export default function TextRevealSection() {
       ref={containerRef}
       className="relative flex min-h-[60vh] items-center px-8 py-[var(--section-py)] md:px-10"
     >
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-3xl">
         {PHILOSOPHY_PHRASES.map((phrase, i) => (
           <PhraseRow
             key={i}

@@ -50,7 +50,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
     <AnimatePresence>
       {show && (
         <motion.div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0a0a0a]"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-background"
           initial={{ y: 0 }}
           exit={{ y: "-100vh" }}
           transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}

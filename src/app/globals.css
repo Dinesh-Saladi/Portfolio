@@ -28,7 +28,7 @@
   /* Fluid type scale — modular (major third ratio 1.25) clamped between mobile and desktop */
   --fluid-xs: clamp(0.6875rem, 0.6563rem + 0.1563vw, 0.75rem);
   --fluid-sm: clamp(0.8125rem, 0.75rem + 0.3125vw, 0.9375rem);
-  --fluid-base: clamp(0.9375rem, 0.875rem + 0.3125vw, 1rem);
+  --fluid-base: clamp(1rem, 0.9375rem + 0.3125vw, 1.0625rem);
   --fluid-lg: clamp(1.0625rem, 0.9688rem + 0.4688vw, 1.1875rem);
   --fluid-xl: clamp(1.25rem, 1.125rem + 0.625vw, 1.5rem);
   --fluid-2xl: clamp(1.5rem, 1.3125rem + 0.9375vw, 1.875rem);
