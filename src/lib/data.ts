@@ -192,15 +192,14 @@ export interface CPPlatform {
   name: string;
   rating: string;
   rank: string;
-  suffix?: string;
   url: string;
 }
 
 export const COMPETITIVE_PROGRAMMING = {
   platforms: [
-    { name: "LeetCode", rating: "1870", rank: "Knight", suffix: "800+ Problems Solved", url: "https://leetcode.com/u/DineshSaladi/" },
-    { name: "CodeChef", rating: "1664", rank: "3★", url: "https://www.codechef.com/users/dineshsaladi" },
+    { name: "LeetCode", rating: "1870", rank: "Knight", url: "https://leetcode.com/u/DineshSaladi/" },
     { name: "Codeforces", rating: "1383", rank: "Pupil", url: "https://codeforces.com/profile/Dinesh-Saladi" },
+    { name: "CodeChef", rating: "1664", rank: "3 Star", url: "https://www.codechef.com/users/dineshsaladi" },
   ] satisfies CPPlatform[],
 } as const;
 

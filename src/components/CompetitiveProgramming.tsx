@@ -10,14 +10,12 @@ function PlatformRow({
   name,
   rating,
   rank,
-  suffix,
   url,
   index,
 }: {
   name: string;
   rating: string;
   rank: string;
-  suffix?: string;
   url: string;
   index: number;
 }) {
@@ -51,11 +49,6 @@ function PlatformRow({
           >
             {name}
           </h3>
-          {suffix && (
-            <p className="mt-1 text-xs font-light tracking-wide text-white/30">
-              {suffix}
-            </p>
-          )}
         </div>
 
         {/* Rank — desktop only */}
@@ -138,7 +131,6 @@ export default function CompetitiveProgramming() {
           name={p.name}
           rating={p.rating}
           rank={p.rank}
-          suffix={p.suffix}
           url={p.url}
           index={i}
         />
