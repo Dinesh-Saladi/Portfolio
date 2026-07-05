@@ -193,22 +193,15 @@ export interface CPPlatform {
   rating: string;
   rank: string;
   suffix?: string;
-}
-
-export interface CPAchievement {
-  label: string;
-  detail: string;
+  url: string;
 }
 
 export const COMPETITIVE_PROGRAMMING = {
   platforms: [
-    { name: "LeetCode", rating: "1870", rank: "Knight", suffix: "800+ Problems Solved" },
-    { name: "CodeChef", rating: "1664", rank: "3★" },
-    { name: "Codeforces", rating: "1383", rank: "Pupil" },
+    { name: "LeetCode", rating: "1870", rank: "Knight", suffix: "800+ Problems Solved", url: "https://leetcode.com/u/DineshSaladi/" },
+    { name: "CodeChef", rating: "1664", rank: "3★", url: "https://www.codechef.com/users/dineshsaladi" },
+    { name: "Codeforces", rating: "1383", rank: "Pupil", url: "https://codeforces.com/profile/Dinesh-Saladi" },
   ] satisfies CPPlatform[],
-  achievements: [
-    { label: "Global Rank 90", detail: "CodeChef Starters 188" },
-  ] satisfies CPAchievement[],
 } as const;
 
 /* ── SEO metadata ────────────────────────────── */

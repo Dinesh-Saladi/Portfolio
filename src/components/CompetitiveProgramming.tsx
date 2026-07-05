@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { COMPETITIVE_PROGRAMMING } from "@/lib/data";
-import { EASE, DURATION, STAGGER } from "@/lib/motion";
+import { EASE, DURATION } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 function PlatformRow({
@@ -11,12 +11,14 @@ function PlatformRow({
   rating,
   rank,
   suffix,
+  url,
   index,
 }: {
   name: string;
   rating: string;
   rank: string;
   suffix?: string;
+  url: string;
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,19 +37,22 @@ function PlatformRow({
         ease: EASE,
       }}
     >
-      <div className="grid grid-cols-12 items-baseline gap-4 px-8 py-8 md:px-10 min-h-[44px]">
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="interactive grid grid-cols-12 items-baseline gap-4 px-8 py-8 md:px-10 min-h-[44px] focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-2 focus-visible:rounded"
+      >
         {/* Platform name */}
         <div className="col-span-7 md:col-span-4">
           <h3
-            className="text-lg font-medium tracking-tight md:text-2xl"
+            className="text-lg font-medium tracking-tight transition-colors duration-200 md:text-2xl group-hover:text-white/90"
             style={{ color: "rgba(255,255,255,0.7)" }}
           >
             {name}
           </h3>
           {suffix && (
-            <p
-              className="mt-1 text-xs font-light tracking-wide text-white/30"
-            >
+            <p className="mt-1 text-xs font-light tracking-wide text-white/30">
               {suffix}
             </p>
           )}
@@ -76,7 +81,7 @@ function PlatformRow({
             {rank}
           </p>
         </div>
-      </div>
+      </a>
     </motion.div>
   );
 }
@@ -134,37 +139,10 @@ export default function CompetitiveProgramming() {
           rating={p.rating}
           rank={p.rank}
           suffix={p.suffix}
+          url={p.url}
           index={i}
         />
       ))}
-
-      {/* Achievement highlight */}
-      <div className="px-8 pt-16 md:px-10">
-        <motion.div
-          className="flex flex-col items-start gap-6 border-t border-white/10 pt-12 md:flex-row md:items-baseline md:gap-12"
-          initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{
-            duration: reduced ? 0 : DURATION.slow,
-            delay: reduced ? 0 : 0.2,
-            ease: EASE,
-          }}
-        >
-          <p className="text-xs tracking-[0.3em] text-white/30">ACHIEVEMENT</p>
-          <div>
-            <p
-              className="font-[200] leading-tight tracking-tight text-white/80"
-              style={{ fontSize: "var(--fluid-2xl)" }}
-            >
-              {COMPETITIVE_PROGRAMMING.achievements[0].label}
-            </p>
-            <p className="mt-2 text-sm font-light text-white/40">
-              {COMPETITIVE_PROGRAMMING.achievements[0].detail}
-            </p>
-          </div>
-        </motion.div>
-      </div>
     </section>
   );
 }
