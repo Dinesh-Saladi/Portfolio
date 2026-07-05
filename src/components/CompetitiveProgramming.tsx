@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { COMPETITIVE_PROGRAMMING } from "@/lib/data";
 import { EASE, DURATION } from "@/lib/motion";
@@ -12,12 +12,20 @@ function PlatformRow({
   rank,
   url,
   index,
+  isHovered,
+  isDimmed,
+  onHover,
+  onLeave,
 }: {
   name: string;
   rating: string;
   rank: string;
   url: string;
   index: number;
+  isHovered: boolean;
+  isDimmed: boolean;
+  onHover: () => void;
+  onLeave: () => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -26,13 +34,20 @@ function PlatformRow({
   return (
     <motion.div
       ref={ref}
-      className="group project-row"
+      className="project-row"
       initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       animate={isInView || reduced ? { opacity: 1, y: 0 } : {}}
       transition={{
         duration: reduced ? 0 : DURATION.base,
         delay: reduced ? 0 : index * 0.08,
         ease: EASE,
+      }}
+      onMouseEnter={reduced ? undefined : onHover}
+      onMouseLeave={reduced ? undefined : onLeave}
+      style={{
+        background: isHovered ? "var(--foreground)" : "transparent",
+        opacity: reduced ? 1 : isDimmed ? 0.3 : 1,
+        transition: reduced ? "none" : "opacity 0.2s ease-in-out, background 0.2s ease-in-out",
       }}
     >
       <a
@@ -44,8 +59,12 @@ function PlatformRow({
         {/* Platform name */}
         <div className="col-span-7 md:col-span-4">
           <h3
-            className="text-lg font-medium tracking-tight transition-colors duration-200 md:text-2xl group-hover:text-white/90"
-            style={{ color: "rgba(255,255,255,0.7)" }}
+            className="text-lg font-medium tracking-tight md:text-2xl"
+            style={{
+              color: isHovered ? "var(--background)" : "rgba(255,255,255,0.7)",
+              transform: !reduced && isHovered ? "translateX(10px)" : "translateX(0)",
+              transition: reduced ? "none" : "color 0.2s ease-in-out, transform 0.2s ease-in-out",
+            }}
           >
             {name}
           </h3>
@@ -53,7 +72,13 @@ function PlatformRow({
 
         {/* Rank — desktop only */}
         <div className="hidden md:col-span-4 md:block">
-          <p className="text-sm font-light tracking-[0.15em] text-white/40">
+          <p
+            className="text-sm font-light tracking-[0.15em]"
+            style={{
+              color: isHovered ? "var(--background)" : "rgba(255,255,255,0.4)",
+              transition: "color 0.2s ease-in-out",
+            }}
+          >
             {rank}
           </p>
         </div>
@@ -61,8 +86,12 @@ function PlatformRow({
         {/* Rating — right aligned */}
         <div className="col-span-5 md:col-span-4 flex justify-end">
           <p
-            className="font-[200] tabular-nums tracking-tight text-white/80"
-            style={{ fontSize: "var(--fluid-2xl)" }}
+            className="font-[200] tabular-nums tracking-tight"
+            style={{
+              fontSize: "var(--fluid-2xl)",
+              color: isHovered ? "var(--background)" : "rgba(255,255,255,0.8)",
+              transition: "color 0.2s ease-in-out",
+            }}
           >
             {rating}
           </p>
@@ -70,7 +99,13 @@ function PlatformRow({
 
         {/* Rank — mobile only */}
         <div className="col-span-12 md:hidden">
-          <p className="text-xs font-light tracking-[0.15em] text-white/40">
+          <p
+            className="text-xs font-light tracking-[0.15em]"
+            style={{
+              color: isHovered ? "var(--background)" : "rgba(255,255,255,0.4)",
+              transition: "color 0.2s ease-in-out",
+            }}
+          >
             {rank}
           </p>
         </div>
@@ -82,6 +117,7 @@ function PlatformRow({
 export default function CompetitiveProgramming() {
   const headerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(headerRef, { once: true, margin: "-100px" });
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const reduced = useReducedMotion();
 
   return (
@@ -133,6 +169,10 @@ export default function CompetitiveProgramming() {
           rank={p.rank}
           url={p.url}
           index={i}
+          isHovered={hoveredIndex === i}
+          isDimmed={hoveredIndex !== null && hoveredIndex !== i}
+          onHover={() => setHoveredIndex(i)}
+          onLeave={() => setHoveredIndex(null)}
         />
       ))}
     </section>

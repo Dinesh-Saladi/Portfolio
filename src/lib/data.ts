@@ -184,7 +184,6 @@ export const EXPERIENCE: ExperienceEntry[] = [
       "LLMs",
       "AI Agents",
       "Azure DevOps",
-      "Docker",
     ],
   },
 ];
