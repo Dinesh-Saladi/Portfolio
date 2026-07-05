@@ -48,7 +48,7 @@ function ProjectRow({
     >
       {/* ── Main row ── */}
       <div
-        className="interactive grid cursor-pointer grid-cols-12 items-center px-8 py-7 md:px-10 min-h-[36px] md:min-h-[48px]"
+        className="interactive grid cursor-pointer grid-cols-12 items-center px-8 py-7 md:px-10 min-h-[44px] focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-2 focus-visible:rounded"
         onClick={() => setIsOpen(!isOpen)}
         role="button"
         tabIndex={0}

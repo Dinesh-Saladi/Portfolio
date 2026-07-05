@@ -62,7 +62,7 @@ export default function Contact() {
                   <a
                     href={`mailto:${SITE.email}`}
                     aria-label={`Send email to ${SITE.email}`}
-                    className="interactive group inline-flex cursor-pointer items-center justify-center gap-3 rounded-full border border-white/20 font-light text-white transition-colors duration-300 hover:border-white/40 hover:bg-white/5"
+                    className="interactive group inline-flex cursor-pointer items-center justify-center gap-3 rounded-full border border-white/20 font-light text-white transition-colors duration-300 hover:border-white/40 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-2"
                     style={{ padding: "16px 24px", fontSize: "var(--fluid-base)" }}
                   >
                     <span className="whitespace-nowrap">{SITE.email}</span>
@@ -152,7 +152,7 @@ export default function Contact() {
                 <a
                   href={`mailto:${SITE.email}`}
                   aria-label={`Send email to ${SITE.email}`}
-                  className="interactive group inline-flex cursor-pointer items-center justify-center gap-3 rounded-full border border-white/20 font-light text-white transition-colors duration-300 hover:border-white/40 hover:bg-white/5"
+                  className="interactive group inline-flex cursor-pointer items-center justify-center gap-3 rounded-full border border-white/20 font-light text-white transition-colors duration-300 hover:border-white/40 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-2"
                   style={{
                     padding: "16px 24px",
                     fontSize: "var(--fluid-base)",

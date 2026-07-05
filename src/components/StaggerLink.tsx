@@ -30,7 +30,7 @@ export default function StaggerLink({
         target={target}
         rel={rel}
         aria-label={ariaLabel ?? label}
-        className={`${className}`}
+        className={`inline-flex items-center min-h-[44px] focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-2 ${className}`}
       >
         {label}
       </a>
@@ -43,7 +43,7 @@ export default function StaggerLink({
       target={target}
       rel={rel}
       aria-label={ariaLabel ?? label}
-      className={`link-hover inline-flex overflow-hidden ${className}`}
+      className={`link-hover inline-flex items-center overflow-hidden min-h-[44px] focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-2 ${className}`}
       initial="idle"
       whileHover="hover"
     >
