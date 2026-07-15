@@ -14,7 +14,7 @@ export default function Header() {
     >
       <a
         href="#"
-        className="text-xs font-normal tracking-[0.2em] text-white uppercase focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-4"
+        className="text-xs font-normal tracking-[0.2em] text-white uppercase mr-8 focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-4"
         aria-label={`${SITE.name} — back to top`}
       >
         {SITE.name}

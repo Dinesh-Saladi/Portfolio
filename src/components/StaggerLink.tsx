@@ -38,15 +38,15 @@ export default function StaggerLink({
   }
 
   return (
-    <motion.a
-      href={href}
-      target={target}
-      rel={rel}
-      aria-label={ariaLabel ?? label}
-      className={`link-hover inline-flex items-center overflow-hidden min-h-[44px] focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-2 ${className}`}
-      initial="idle"
-      whileHover="hover"
-    >
+      <motion.a
+        href={href}
+        target={target}
+        rel={rel}
+        aria-label={ariaLabel ?? label}
+        className={`link-hover inline-flex items-center whitespace-nowrap overflow-hidden min-h-[44px] focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-2 ${className}`}
+        initial="idle"
+        whileHover="hover"
+      >
       {letters.map((char, i) => (
         <span key={i} className="relative inline-block overflow-hidden" style={{ height: "1.2em" }}>
           <motion.span
