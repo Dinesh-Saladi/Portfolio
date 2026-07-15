@@ -138,7 +138,6 @@ export const NAV_LINKS = [
   { label: "GITHUB", href: SITE.github },
   { label: "LINKEDIN", href: SITE.linkedin },
   { label: "RESUME", href: SITE.resume },
-  { label: "CONTACT", href: `mailto:${SITE.email}` },
 ] as const;
 
 export const PRELOADER_WORDS = [
