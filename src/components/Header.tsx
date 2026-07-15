@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { NAV_LINKS, SITE } from "@/lib/data";
-import StaggerLink from "./StaggerLink";
 
 export default function Header() {
   return (
@@ -14,23 +13,27 @@ export default function Header() {
     >
       <a
         href="#"
-        className="inline-flex items-center min-h-[44px] text-xs font-light leading-none tracking-[0.2em] text-white uppercase mr-8 focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-4"
+        className="inline-flex items-center min-h-[44px] text-xs font-light tracking-[0.2em] text-white uppercase mr-8 focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-4"
         aria-label={`${SITE.name} — back to top`}
       >
         {SITE.name}
       </a>
 
       <nav className="flex items-center gap-6 md:gap-10" aria-label="Social and contact links">
-        {NAV_LINKS.map((link) => (
-          <StaggerLink
-            key={link.label}
-            href={link.href}
-            label={link.label}
-            target={link.href.startsWith("http") || link.href.endsWith(".pdf") ? "_blank" : undefined}
-            rel={link.href.startsWith("http") || link.href.endsWith(".pdf") ? "noopener noreferrer" : undefined}
-            className="text-xs tracking-[0.2em] font-light text-white mt-px"
-          />
-        ))}
+        {NAV_LINKS.map((link) => {
+          const isExternal = link.href.startsWith("http") || link.href.endsWith(".pdf");
+          return (
+            <a
+              key={link.label}
+              href={link.href}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
+              className="link-hover inline-flex items-center min-h-[44px] text-xs tracking-[0.2em] font-light text-white focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-2"
+            >
+              {link.label}
+            </a>
+          );
+        })}
       </nav>
     </motion.header>
   );
