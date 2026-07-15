@@ -28,7 +28,7 @@ export default function Header() {
             label={link.label}
             target={link.href.startsWith("http") || link.href.endsWith(".pdf") ? "_blank" : undefined}
             rel={link.href.startsWith("http") || link.href.endsWith(".pdf") ? "noopener noreferrer" : undefined}
-            className="text-xs tracking-[0.2em] font-light text-white"
+            className="text-xs tracking-[0.2em] font-light text-white mt-px"
           />
         ))}
       </nav>
